@@ -9,10 +9,12 @@ import AuthComponent from './components/AuthComponent'
 import MenuVoyageComponent from './components/MenuVoyageComponent'
 import LogementsList from './components/LogementsList'
 import ListeVoyagesComponent from './components/ListeVoyagesComponent'
+import AddHousingComponent from './components/AddHousingComponent'
 
 export default () => (
   <Router>
     <Stack key='root'>
+      <Scene key='AddHousing' component={AddHousingComponent} title='Ajouter logement' />
       <Scene key='login' component={AuthComponent} title='Login' />
       <Scene key='listeVoyages' component={ListeVoyagesComponent} title='Mes voyages' />
       <Scene key='voyage' component={MenuVoyageComponent} title='' />
