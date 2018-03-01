@@ -60,6 +60,7 @@ export default class CreationScreenOne extends Component {
               confirmBtnText='Confirm'
               cancelBtnText='Cancel'
               iconSource={null}
+              customStyles={{ dateText: { position: 'absolute', left: 0 } }}
               onDateChange={date => {
                 this.setState({ dateBegin: date })
               }}
@@ -114,6 +115,9 @@ const styles = StyleSheet.create({
     flex: 1,
     marginHorizontal: 30
   },
+  text: {
+    marginLeft: 5
+  },
   mainContainer: {
     flex: 1,
     backgroundColor: '#fff'
@@ -129,11 +133,15 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center'
   },
+  btn2: {
+    marginLeft: 5
+  },
   datePick: {
-    width: 150
+    width: 150,
+    marginLeft: 5
   },
   datePickerContainer: {
-    marginVertical: 5
-    /* flexDirection: 'row' */
+    marginVertical: 5,
+    flexDirection: 'row'
   }
 })

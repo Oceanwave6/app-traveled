@@ -34,7 +34,7 @@
     "preset": "react-native"
   },
   "dependencies": {
-    "@m5r/react-native-datepicker": "1.6.1",
+    "@m5r/react-native-datepicker": "1.6.2",
     "date-fns": "^1.29.0",
     "expo": "23.0.4",
     "fbjs": "^0.8.16",
