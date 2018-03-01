@@ -13,7 +13,12 @@ import ListeVoyagesComponent from './components/ListeVoyagesComponent'
 import AddHousingComponent from './components/AddHousingComponent'
 
 export default () => (
-  <Router>
+  <Router
+    navigationBarStyle={{ backgroundColor: '#8A3148' }}
+    titleStyle={{ color: '#fff' }}
+    backButtonTextStyle={{ tintColor: '#fff' }}
+    backButtonTintColor='#fff'
+  >
     <Stack key='root'>
       <Scene key='AddHousing' component={AddHousingComponent} title='Ajouter logement' />
       <Scene key='login' component={AuthComponent} title='Connexion' />
