@@ -16,7 +16,7 @@ class HousingCreation {
 
     @action
     addAddress (address) {
-      this.name = address
+      this.address = address
     }
 
     @action
@@ -30,30 +30,33 @@ class HousingCreation {
     }
 
     @action
+    addMembers (members) {
+      this.members = members
+    }
+
+    @action
     addContact (contact) {
-      this.name = contact
+      this.contact = contact
     }
 
     @action
     addNotes (notes) {
-      this.name = notes
+      this.notes = notes
     }
 
-    createHousing () {
-      const travelRef = database.ref('voyages/0/logements').push({
+    createHousing (id) {
+      const travelRef = database.ref('travels/' + id + '/housings').push({
         name: this.name,
+        address: this.address,
         dateBegin: this.dateBegin,
-        dateEnd: this.dateEnd
-      })
-  
-      this.emails.forEach(email => {
-        database.refFromURL(`${travelRef.toString()}/emails`).push(email)
+        dateEnd: this.dateEnd,
+        contact: this.contact,
+        notes: this.notes
       })
 
-      this.modules.forEach(module => {
-        database.refFromURL(`${travelRef.toString()}/modules`).push(module)
+      this.members.forEach(member => {
+        database.refFromURL(`${travelRef.toString()}/members`).push(member)
       })
-      this.sendNewTravelMail()
     }
 }
 

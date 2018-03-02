@@ -15,20 +15,35 @@ export default class AddHousingComponent extends Component {
     address: '',
     dateBegin: '',
     dateEnd: '',
+    members: [],
     contact: '',
     notes: ''
   }
 
+  handleMembersChange = (text, key) => {
+    this.setState(prevState => {
+      const { members } = prevState
+      members[key].text = text
+
+      return {
+        members
+      }
+    })
+  }
+
   validate = () => {
     const { housingCreation } = this.props
-    const { name, address, dateBegin, dateEnd, contact, notes } = this.state
+    const { name, address, dateBegin, dateEnd, members, contact, notes } = this.state
 
     housingCreation.addName(name)
     housingCreation.addAddress(address)
     housingCreation.addDateBegin(dateBegin)
     housingCreation.addDateEnd(dateEnd)
+    housingCreation.addMembers(members)
     housingCreation.addContact(contact)
     housingCreation.addNotes(notes)
+
+    housingCreation.createHousing('-L3mP01U5xPgHxONVDpC')
 
     // Actions.formPartTwo()
   }
