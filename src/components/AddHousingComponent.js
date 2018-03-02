@@ -6,6 +6,7 @@ import { Actions } from 'react-native-router-flux'
 import { observer, inject } from 'mobx-react'
 import { format } from 'date-fns'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import SelectMultiple from 'react-native-select-multiple'
 
 @inject('travelCreation')
 @observer
@@ -16,8 +17,13 @@ export default class CreationScreenOne extends Component {
     textContact: '',
     textNotes: '',
     dateBegin: '',
+    selectedParticipants: [],
     dateEnd: ''
   }
+    onSelectionsChange = (selectedParticipants) => {
+      // selectedFruits is array of { label, value }
+      this.setState({ selectedParticipants })
+    }
 
   handleNavigation = () => {
     const { travelCreation } = this.props
@@ -31,6 +37,7 @@ export default class CreationScreenOne extends Component {
   }
   render () {
     const { dateBegin, dateEnd } = this.state
+    const Participants = ['Patrick', 'José', 'McDurnam']
 
     return (
       <View style={styles.mainContainer}>
@@ -101,11 +108,12 @@ export default class CreationScreenOne extends Component {
             value={this.state.textNotes}
           />
           <Text style={styles.text}>Liste des personnes</Text>
-          <CheckBox
-            label='Label'
-            checked={1}
-            onChange={(checked) => console.log('I am checked', checked)}
-          />
+          <View>
+            <SelectMultiple
+              items={Participants}
+              selectedItems={this.state.selectedParticipants}
+              onSelectionsChange={this.onSelectionsChange} />
+          </View>
         </KeyboardAwareScrollView>
         <Button
         /* onPress={this.handleNavigation} */
@@ -138,7 +146,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#D42B64',
     borderRadius: 50,
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    zIndex: 100
   },
   datePick: {
     width: 150,

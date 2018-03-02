@@ -34,7 +34,7 @@
     "preset": "react-native"
   },
   "dependencies": {
-    "@m5r/react-native-datepicker": "1.6.2",
+    "@m5r/react-native-datepicker": "1.6.3",
     "date-fns": "^1.29.0",
     "expo": "23.0.4",
     "fbjs": "^0.8.16",
@@ -45,10 +45,11 @@
     "react-native": "^0.52.0",
     "react-native-checkbox": "2.0.0",
     "react-native-firebase": "^3.2.2",
+    "react-native-flexi-radio-button": "^0.2.2",
     "react-native-image-picker": "^0.26.7",
     "react-native-keyboard-aware-scroll-view": "^0.4.4",
     "react-native-router-flux": "4.0.0-beta.28",
-    "react-native-step-indicator": "^0.0.7",
-    "react-native-flexi-radio-button": "^0.2.2"
+    "react-native-select-multiple": "^1.2.0",
+    "react-native-step-indicator": "^0.0.7"
   }
 }

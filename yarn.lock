@@ -204,9 +204,9 @@
   version "0.2.6"
   resolved "https://registry.yarnpkg.com/@firebase/webchannel-wrapper/-/webchannel-wrapper-0.2.6.tgz#a4b81ca8cdeb1acbc7923289a4a514f61b59db86"
 
-"@m5r/react-native-datepicker@1.6.2":
-  version "1.6.2"
-  resolved "https://registry.yarnpkg.com/@m5r/react-native-datepicker/-/react-native-datepicker-1.6.2.tgz#f6a38e22a3e7755383f4dcf4f8a3a271b69c001c"
+"@m5r/react-native-datepicker@1.6.3":
+  version "1.6.3"
+  resolved "https://registry.yarnpkg.com/@m5r/react-native-datepicker/-/react-native-datepicker-1.6.3.tgz#23f62515b8849e176a552e7a0dcd581c5852c08f"
   dependencies:
     moment "2.x.x"
 
@@ -5955,6 +5955,12 @@ react-native-scripts@1.9.0:
     qrcode-terminal "^0.11.0"
     rimraf "^2.6.1"
     xdl "47.2.0"
+
+react-native-select-multiple@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/react-native-select-multiple/-/react-native-select-multiple-1.2.0.tgz#1f4662c085fc2b76101986d0a45b09e5343359e5"
+  dependencies:
+    prop-types "^15.6.0"
 
 react-native-step-indicator@^0.0.7:
   version "0.0.7"
