@@ -204,9 +204,9 @@
   version "0.2.6"
   resolved "https://registry.yarnpkg.com/@firebase/webchannel-wrapper/-/webchannel-wrapper-0.2.6.tgz#a4b81ca8cdeb1acbc7923289a4a514f61b59db86"
 
-"@m5r/react-native-datepicker@1.6.3":
-  version "1.6.3"
-  resolved "https://registry.yarnpkg.com/@m5r/react-native-datepicker/-/react-native-datepicker-1.6.3.tgz#23f62515b8849e176a552e7a0dcd581c5852c08f"
+"@m5r/react-native-datepicker@1.6.4":
+  version "1.6.4"
+  resolved "https://registry.yarnpkg.com/@m5r/react-native-datepicker/-/react-native-datepicker-1.6.4.tgz#b06fd0f13343845d56d676f78628dff88c352dea"
   dependencies:
     moment "2.x.x"
 

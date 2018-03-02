@@ -6,6 +6,7 @@ import { observer, inject } from 'mobx-react'
 import { format } from 'date-fns'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import SelectMultiple from 'react-native-select-multiple'
+import { loadTravelUsers } from '../util'
 
 @inject('housingCreation')
 @observer
@@ -15,12 +16,31 @@ export default class AddHousingComponent extends Component {
     address: '',
     dateBegin: '',
     dateEnd: '',
+    travelMembers: [],
     members: [],
     contact: '',
     notes: ''
   }
+
+  async componentWillMount () {
+    console.log('get users')
+    loadTravelUsers('-L3mP01U5xPgHxONVDpC').then(users => {
+      console.log('users 1 : ' + users)
+      users.forEach(member => {
+        console.log('before ' + member)
+        member.label = member.surname + ' ' + member.name
+        member.value = member.key
+        console.log('user : ' + member)
+      })
+      console.log('users 2 : ' + users)
+      this.setState({ travelMembers: users })
+    }).catch(error => {
+      console.log(error)
+    })
+  }
+
     onSelectionsChange = (members) => {
-      // selectedFruits is array of { label, value }
+      console.log(members)
       this.setState({ members })
     }
 
@@ -53,7 +73,6 @@ export default class AddHousingComponent extends Component {
   }
   render () {
     const { dateBegin, dateEnd } = this.state
-    const Participants = ['Patrick', 'José', 'McDurnam']
 
     return (
       <View style={styles.mainContainer}>
@@ -82,8 +101,8 @@ export default class AddHousingComponent extends Component {
               date={dateBegin}
               mode='date'
               placeholder='Date de début'
-              format='DD-MM-YYY'
-              minDate={format(Date.now(), 'DD-MM-YYY')}
+              format='YYYY-MM-DD'
+              minDate={format(Date.now(), 'YYYY-MM-DD')}
               confirmBtnText='Confirmer'
               cancelBtnText='Annuler'
               iconSource={null}
@@ -97,8 +116,8 @@ export default class AddHousingComponent extends Component {
               date={dateEnd}
               mode='date'
               placeholder='Date de fin'
-              format='DD-MM-YYY'
-              minDate={format(Date.now(), 'DD-MM-YYY')}
+              format='YYYY-MM-DD'
+              minDate={format(Date.now(), 'YYYY-MM-DD')}
               confirmBtnText='Confirmer'
               cancelBtnText='Annuler'
               iconSource={null}
@@ -126,7 +145,7 @@ export default class AddHousingComponent extends Component {
           <Text style={styles.text}>Liste des personnes</Text>
           <View>
             <SelectMultiple
-              items={Participants}
+              items={this.state.travelMembers}
               selectedItems={this.state.members}
               onSelectionsChange={this.onSelectionsChange} />
           </View>
@@ -166,11 +185,12 @@ const styles = StyleSheet.create({
     zIndex: 100
   },
   datePick: {
-    width: 150,
-    marginLeft: 5
+    width: 150
   },
   datePickerContainer: {
     marginVertical: 5,
-    flexDirection: 'row'
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-around'
   }
 })
