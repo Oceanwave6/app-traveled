@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { StyleSheet, Text, View, Button, TextInput, TouchableOpacity, Platform } from 'react-native'
+import CheckBox from 'react-native-checkbox'
 import DatePicker from '@m5r/react-native-datepicker'
 import { Actions } from 'react-native-router-flux'
 import { observer, inject } from 'mobx-react'
@@ -91,10 +92,6 @@ export default class CreationScreenOne extends Component {
             }}
             value={this.state.textContact}
           />
-          <Text style={styles.text}>Liste des personnes</Text>
-          <TouchableOpacity style={styles.btn2}>
-            <Text>+ Ajouter une personne</Text>
-          </TouchableOpacity>
           <TextInput
             style={{ borderColor: 'gray', marginVertical: 5, borderBottomWidth: Platform.OS === 'ios' ? 1 : 0 }}
             placeholder='Notes'
@@ -102,6 +99,12 @@ export default class CreationScreenOne extends Component {
               this.setState({ textNotes })
             }}
             value={this.state.textNotes}
+          />
+          <Text style={styles.text}>Liste des personnes</Text>
+          <CheckBox
+            label='Label'
+            checked={1}
+            onChange={(checked) => console.log('I am checked', checked)}
           />
         </KeyboardAwareScrollView>
         <Button
@@ -136,9 +139,6 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     alignItems: 'center',
     justifyContent: 'center'
-  },
-  btn2: {
-    marginLeft: 5
   },
   datePick: {
     width: 150,
