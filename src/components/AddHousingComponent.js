@@ -10,7 +10,10 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 @observer
 export default class CreationScreenOne extends Component {
   state = {
-    text: '',
+    textNom: '',
+    textAdresse: '',
+    textContact: '',
+    textNotes: '',
     dateBegin: '',
     dateEnd: ''
   }
@@ -37,18 +40,18 @@ export default class CreationScreenOne extends Component {
           <TextInput
             style={{ borderColor: 'gray', marginVertical: 5, borderBottomWidth: Platform.OS === 'ios' ? 1 : 0 }}
             placeholder='Nom'
-            onChangeText={text => {
-              this.setState({ text })
+            onChangeText={textNom => {
+              this.setState({ textNom })
             }}
-            value={this.state.text}
+            value={this.state.textNom}
           />
           <TextInput
             style={{ borderColor: 'gray', marginVertical: 5, borderBottomWidth: Platform.OS === 'ios' ? 1 : 0 }}
             placeholder='Adresse'
-            onChangeText={text => {
-              this.setState({ text })
+            onChangeText={textAdresse => {
+              this.setState({ textAdresse })
             }}
-            value={this.state.text}
+            value={this.state.textAdresse}
           />
           <View style={styles.datePickerContainer}>
             <DatePicker style={styles.datePick}
@@ -60,7 +63,7 @@ export default class CreationScreenOne extends Component {
               confirmBtnText='Confirm'
               cancelBtnText='Cancel'
               iconSource={null}
-              customStyles={{ dateText: { position: 'absolute', left: 0 } }}
+              customStyles={{ placeholderText: { position: 'absolute', left: 0 } }}
               onDateChange={date => {
                 this.setState({ dateBegin: date })
               }}
@@ -75,6 +78,7 @@ export default class CreationScreenOne extends Component {
               confirmBtnText='Confirm'
               cancelBtnText='Cancel'
               iconSource={null}
+              customStyles={{ placeholderText: { position: 'absolute', left: 0 } }}
               onDateChange={date => {
                 this.setState({ dateEnd: date })
               }}
@@ -82,10 +86,10 @@ export default class CreationScreenOne extends Component {
           </View>
           <TextInput style={{ marginVertical: 5, borderColor: 'gray', borderBottomWidth: Platform.OS === 'ios' ? 1 : 0 }}
             placeholder='Contact'
-            onChangeText={text => {
-              this.setState({ text })
+            onChangeText={textContact => {
+              this.setState({ textContact })
             }}
-            value={this.state.text}
+            value={this.state.textContact}
           />
           <Text style={styles.text}>Liste des personnes</Text>
           <TouchableOpacity style={styles.btn2}>
@@ -94,10 +98,10 @@ export default class CreationScreenOne extends Component {
           <TextInput
             style={{ borderColor: 'gray', marginVertical: 5, borderBottomWidth: Platform.OS === 'ios' ? 1 : 0 }}
             placeholder='Notes'
-            onChangeText={text => {
-              this.setState({ text })
+            onChangeText={textNotes => {
+              this.setState({ textNotes })
             }}
-            value={this.state.text}
+            value={this.state.textNotes}
           />
         </KeyboardAwareScrollView>
         <Button
