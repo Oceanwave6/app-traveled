@@ -23,11 +23,11 @@ export default class AddHousingComponent extends Component {
     const { name, address, dateBegin, dateEnd, contact, notes } = this.state
 
     housingCreation.addName(name)
-    housingCreation.addName(address)
+    housingCreation.addAddress(address)
     housingCreation.addDateBegin(dateBegin)
     housingCreation.addDateEnd(dateEnd)
-    housingCreation.addName(contact)
-    housingCreation.addName(notes)
+    housingCreation.addContact(contact)
+    housingCreation.addNotes(notes)
 
     // Actions.formPartTwo()
   }

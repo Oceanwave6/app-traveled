@@ -1,5 +1,5 @@
 import { observable, action } from 'mobx'
-// import { database } from '../config/firebase'
+import { database } from '../config/firebase'
 
 class HousingCreation {
     @observable name = ''
@@ -37,6 +37,23 @@ class HousingCreation {
     @action
     addNotes (notes) {
       this.name = notes
+    }
+
+    createHousing () {
+      const travelRef = database.ref('voyages/0/logements').push({
+        name: this.name,
+        dateBegin: this.dateBegin,
+        dateEnd: this.dateEnd
+      })
+  
+      this.emails.forEach(email => {
+        database.refFromURL(`${travelRef.toString()}/emails`).push(email)
+      })
+
+      this.modules.forEach(module => {
+        database.refFromURL(`${travelRef.toString()}/modules`).push(module)
+      })
+      this.sendNewTravelMail()
     }
 }
 
