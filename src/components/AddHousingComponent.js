@@ -1,29 +1,35 @@
 import React, { Component } from 'react'
 import { StyleSheet, Text, View, Button, TextInput, TouchableOpacity, Platform } from 'react-native'
 import DatePicker from '@m5r/react-native-datepicker'
-import { Actions } from 'react-native-router-flux'
+// import { Actions } from 'react-native-router-flux'
 import { observer, inject } from 'mobx-react'
 import { format } from 'date-fns'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
-@inject('travelCreation')
+@inject('housingCreation')
 @observer
-export default class CreationScreenOne extends Component {
+export default class AddHousingComponent extends Component {
   state = {
-    text: '',
+    name: '',
+    address: '',
     dateBegin: '',
-    dateEnd: ''
+    dateEnd: '',
+    contact: '',
+    notes: ''
   }
 
-  handleNavigation = () => {
-    const { travelCreation } = this.props
-    const { dateBegin, dateEnd, text } = this.state
+  validate = () => {
+    const { housingCreation } = this.props
+    const { name, address, dateBegin, dateEnd, contact, notes } = this.state
 
-    travelCreation.addName(text)
-    travelCreation.addDateBegin(dateBegin)
-    travelCreation.addDateEnd(dateEnd)
+    housingCreation.addName(name)
+    housingCreation.addName(address)
+    housingCreation.addDateBegin(dateBegin)
+    housingCreation.addDateEnd(dateEnd)
+    housingCreation.addName(contact)
+    housingCreation.addName(notes)
 
-    Actions.formPartTwo()
+    // Actions.formPartTwo()
   }
   render () {
     const { dateBegin, dateEnd } = this.state
@@ -37,28 +43,28 @@ export default class CreationScreenOne extends Component {
           <TextInput
             style={{ borderColor: 'gray', marginVertical: 5, borderBottomWidth: Platform.OS === 'ios' ? 1 : 0 }}
             placeholder='Nom'
-            onChangeText={text => {
-              this.setState({ text })
+            onChangeText={name => {
+              this.setState({ name })
             }}
-            value={this.state.text}
+            value={this.state.name}
           />
           <TextInput
             style={{ borderColor: 'gray', marginVertical: 5, borderBottomWidth: Platform.OS === 'ios' ? 1 : 0 }}
             placeholder='Adresse'
-            onChangeText={text => {
-              this.setState({ text })
+            onChangeText={address => {
+              this.setState({ address })
             }}
-            value={this.state.text}
+            value={this.state.address}
           />
           <View style={styles.datePickerContainer}>
             <DatePicker style={styles.datePick}
               date={dateBegin}
               mode='date'
               placeholder='Date de début'
-              format='YYYY-MM-DD'
-              minDate={format(Date.now(), 'YYYY-MM-DD')}
-              confirmBtnText='Confirm'
-              cancelBtnText='Cancel'
+              format='DD-MM-YYY'
+              minDate={format(Date.now(), 'DD-MM-YYY')}
+              confirmBtnText='Confirmer'
+              cancelBtnText='Annuler'
               iconSource={null}
               onDateChange={date => {
                 this.setState({ dateBegin: date })
@@ -69,10 +75,10 @@ export default class CreationScreenOne extends Component {
               date={dateEnd}
               mode='date'
               placeholder='Date de fin'
-              format='YYYY-MM-DD'
-              minDate={format(Date.now(), 'YYYY-MM-DD')}
-              confirmBtnText='Confirm'
-              cancelBtnText='Cancel'
+              format='DD-MM-YYY'
+              minDate={format(Date.now(), 'DD-MM-YYY')}
+              confirmBtnText='Confirmer'
+              cancelBtnText='Annuler'
               iconSource={null}
               onDateChange={date => {
                 this.setState({ dateEnd: date })
@@ -81,10 +87,10 @@ export default class CreationScreenOne extends Component {
           </View>
           <TextInput style={{ marginVertical: 5, borderColor: 'gray', borderBottomWidth: Platform.OS === 'ios' ? 1 : 0 }}
             placeholder='Contact'
-            onChangeText={text => {
-              this.setState({ text })
+            onChangeText={contact => {
+              this.setState({ contact })
             }}
-            value={this.state.text}
+            value={this.state.contact}
           />
           <Text style={styles.text}>Liste des personnes</Text>
           <TouchableOpacity style={styles.btn2}>
@@ -100,7 +106,7 @@ export default class CreationScreenOne extends Component {
           />
         </KeyboardAwareScrollView>
         <Button
-        /* onPress={this.handleNavigation} */
+          onPress={this.validate}
           title='Valider'
           color='#D42B64'
         />
@@ -133,7 +139,7 @@ const styles = StyleSheet.create({
     width: 150
   },
   datePickerContainer: {
-    marginVertical: 5
-    /* flexDirection: 'row' */
+    marginVertical: 5,
+    flexDirection: 'row'
   }
 })
