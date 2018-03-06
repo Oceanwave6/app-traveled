@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { StyleSheet, Text, View, Button, TextInput, TouchableOpacity, Platform } from 'react-native'
+import { StyleSheet, Text, View, Button, TextInput, TouchableOpacity, Platform, Image } from 'react-native'
 import DatePicker from '@m5r/react-native-datepicker'
 import { Actions } from 'react-native-router-flux'
 import { observer, inject } from 'mobx-react'
@@ -95,7 +95,10 @@ export default class AddHousingComponent extends Component {
     return (
       <View style={styles.mainContainer}>
         <TouchableOpacity style={styles.btn}>
-          <Text>++</Text>
+          <Image
+            style={{ width: 20, height: 20 }}
+            source={require('../../Graphismes/icones/Bin.png')}
+          />
         </TouchableOpacity>
         <KeyboardAwareScrollView style={styles.container}>
           <TextInput
