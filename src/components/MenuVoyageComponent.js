@@ -23,7 +23,7 @@ class MenuVoyageComponent extends Component {
     switch (libModule) {
       case LOGEMENTS:
         this.props.housing.pushHousings(this.props.selectedTravel.logements)
-        Actions.housingsList({ 'selectedTravel': this.props.selectedTravel })
+        Actions.housingsList({ selectedTravel: this.props.selectedTravel })
         break
 
       case TRANSPORTS:
@@ -51,7 +51,7 @@ class MenuVoyageComponent extends Component {
   componentWillMount () {
     // Set travel name in title
     const { setParams } = this.props.navigation
-    setParams({ title: this.props.selectedTravel.name ? this.props.selectedTravel.name : 'Pas de nom' })
+    setParams({ title: this.props.selectedTravel ? this.props.selectedTravel.nom : 'None' })
 
     this.moduleListeRef = this.props.selectedTravel.modules
     this.listenForModules(this.moduleListeRef)
