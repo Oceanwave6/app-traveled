@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
 import { StyleSheet, Text, View, Button, TextInput, TouchableOpacity, Platform } from 'react-native'
 import DatePicker from '@m5r/react-native-datepicker'
-// import { Actions } from 'react-native-router-flux'
+import { Actions } from 'react-native-router-flux'
 import { observer, inject } from 'mobx-react'
 import { format } from 'date-fns'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import SelectMultiple from 'react-native-select-multiple'
-import { loadTravelUsers } from '../util'
+import { database } from '../config/firebase'
 
 @inject('housingCreation')
 @observer
@@ -19,24 +19,35 @@ export default class AddHousingComponent extends Component {
     travelMembers: [],
     members: [],
     contact: '',
-    notes: ''
+    notes: '',
+    error: ''
   }
 
-  async componentWillMount () {
-    console.log('get users')
-    loadTravelUsers('-L3mP01U5xPgHxONVDpC').then(users => {
-      console.log('users 1 : ' + users)
-      users.forEach(member => {
-        console.log('before ' + member)
-        member.label = member.surname + ' ' + member.name
-        member.value = member.key
-        console.log('user : ' + member)
+  loadTravelUsers = (travelId) => {
+    console.log('get users from ' + travelId)
+    let travelUsersRef = database.ref('travels/' + travelId + '/members')
+
+    travelUsersRef.on('value', (travelUsersSnapshot) => {
+      let users = []
+      travelUsersSnapshot.forEach((id) => {
+        database.ref('users/' + id.val()).once('value').then(usersSnapshot => {
+          let userSnapshotVal = usersSnapshot.val()
+          console.log(userSnapshotVal)
+          users.push({
+            'value': usersSnapshot.key,
+            'label': userSnapshotVal.surname + ' ' + userSnapshotVal.name
+          })
+          this.setState({ travelMembers: users })
+        }).catch(error => {
+          console.log(error)
+        })
       })
-      console.log('users 2 : ' + users)
-      this.setState({ travelMembers: users })
-    }).catch(error => {
-      console.log(error)
     })
+  }
+
+  componentDidMount = () => {
+    console.log('get users')
+    this.loadTravelUsers('-L3mP01U5xPgHxONVDpC')
   }
 
     onSelectionsChange = (members) => {
@@ -59,19 +70,24 @@ export default class AddHousingComponent extends Component {
     const { housingCreation } = this.props
     const { name, address, dateBegin, dateEnd, members, contact, notes } = this.state
 
-    housingCreation.addName(name)
-    housingCreation.addAddress(address)
-    housingCreation.addDateBegin(dateBegin)
-    housingCreation.addDateEnd(dateEnd)
-    housingCreation.addMembers(members)
-    housingCreation.addContact(contact)
-    housingCreation.addNotes(notes)
+    if (name !== '') {
+      housingCreation.addName(name)
+      housingCreation.addAddress(address)
+      housingCreation.addDateBegin(dateBegin)
+      housingCreation.addDateEnd(dateEnd)
+      housingCreation.addMembers(members)
+      housingCreation.addContact(contact)
+      housingCreation.addNotes(notes)
 
-    housingCreation.createHousing('-L3mP01U5xPgHxONVDpC')
+      housingCreation.createHousing('-L3mP01U5xPgHxONVDpC')
 
-    // Actions.formPartTwo()
+      Actions.logementsList('-L3mP01U5xPgHxONVDpC')
+    } else {
+      this.setState({ error: 'Veuillez saisir le nom du logement' })
+    }
   }
-  render () {
+
+  render = () => {
     const { dateBegin, dateEnd } = this.state
 
     return (
@@ -88,6 +104,9 @@ export default class AddHousingComponent extends Component {
             }}
             value={this.state.name}
           />
+          {
+            this.state.error !== '' && <Text style={{ color: '#f00' }}>{this.state.error}</Text>
+          }
           <TextInput
             style={{ borderColor: 'gray', marginVertical: 5, borderBottomWidth: Platform.OS === 'ios' ? 1 : 0 }}
             placeholder='Adresse'

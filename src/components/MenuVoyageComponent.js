@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Button, View } from 'react-native'
-import { getModuleNameById } from '../util'
+// import { getModuleNameById } from '../util'
 import { Actions } from 'react-native-router-flux'
 import { LOGEMENTS, TRANSPORTS, DEPENSES, ACTIVITES, DOCUMENTS, LISTES } from '../constants'
 
@@ -19,7 +19,7 @@ class MenuVoyageComponent extends Component {
     // TODO : Mettre le title de votre component selon le cas
     switch (libModule) {
       case LOGEMENTS :
-        Actions.login()
+        Actions.logementsList({ 'travelKey': this.props.travelKey })
         break
 
       case TRANSPORTS :
@@ -47,7 +47,7 @@ class MenuVoyageComponent extends Component {
   componentWillMount () {
     // Set travel name in title
     const { setParams } = this.props.navigation
-    setParams({ title: this.props.selectedTravel ? this.props.selectedTravel.nom : 'None' })
+    setParams({ title: this.props.selectedTravel.name ? this.props.selectedTravel.name : 'Pas de nom' })
 
     this.moduleListeRef = this.props.selectedTravel.modules
     this.listenForModules(this.moduleListeRef)
@@ -56,17 +56,15 @@ class MenuVoyageComponent extends Component {
   // get modules name to show
   listenForModules = (moduleListe) => {
     var items = []
-
-    moduleListe.forEach((child) => {
+    for (var key in moduleListe) {
+      var module = moduleListe[key]
       items.push({
-        libelle: getModuleNameById(child),
-        key: child.toString()
+        libelle: module.value,
+        key: key
       })
-
-      // binding results
-      this.setState({
-        dataSource: items
-      })
+    }
+    this.setState({
+      dataSource: items
     })
   }
 

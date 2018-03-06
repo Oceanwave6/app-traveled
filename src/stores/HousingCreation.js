@@ -55,7 +55,7 @@ class HousingCreation {
       })
 
       this.members.forEach(member => {
-        database.refFromURL(`${travelRef.toString()}/members`).push(member)
+        database.refFromURL(`${travelRef.toString()}/members`).push(member.value)
       })
     }
 }

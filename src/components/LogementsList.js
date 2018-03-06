@@ -5,27 +5,32 @@ import { database } from '../config/firebase'
 export default class HousingList extends Component {
   constructor (props) {
     super(props)
+    this.travelHousingsRef = database.ref('travels/' + this.props.travelKey + '/housings')
     this.state = {
       sections: []
     }
   }
 
   componentDidMount () {
-    database.ref('voyages/0/logements')
+    this.travelHousingsRef
       .orderByKey()
       .once('value')
       .then(logementsSnapshot => {
         const logements = logementsSnapshot.val()
-        const datesDebut = logements.map(logement => logement.date_debut)
-        const sortedLogements = datesDebut.reduce((sortedLogements, dateDebut) => {
-          sortedLogements[dateDebut] = logements.filter(logement => logement.date_debut === dateDebut)
-
-          return sortedLogements
-        }, {})
-        const sections = Object.keys(sortedLogements)
+        console.log('logements : ')
+        console.log(logements)
+        const logementsIds = Object.keys(logements)
+        const datesDebut = []
+        logementsIds.forEach(id => datesDebut.push(logements[id].dateBegin))
+        console.log(datesDebut)
+        // const sortedLogements = datesDebut.reduce((sortedLogements, dateDebut) => {
+        //   sortedLogements[dateDebut] = logements.filter(logement => logement.dateBegin === dateDebut)
+        //   return sortedLogements
+        // }, {})
+        const sections = Object.keys(logements)
           .map(dateDebut => ({
             title: dateDebut,
-            data: logements[dateDebut].map(logement => logement.adresse)
+            data: logements[dateDebut].address
           }))
         this.setState({ sections })
       })

@@ -1,7 +1,5 @@
 import { LOGEMENTS, TRANSPORTS, DEPENSES, ACTIVITES, DOCUMENTS, LISTES } from './constants'
 
-import { database } from './config/firebase'
-
 /**
  * Méthode renvoyant le libellé du module en fonction de son id
  * @param {*} nIdModule id du libellé du module
@@ -29,22 +27,4 @@ export function getModuleNameById (nIdModule) {
     default :
       return 'INCONNU'
   }
-}
-
-export async function loadTravelUsers (travelId) {
-  console.log('get users from ' + travelId)
-  let travelUsersRef = database.ref('travels/' + travelId + '/members')
-  let users = []
-  travelUsersRef.once('value').then(snapshot => {
-    snapshot.forEach((id) => {
-      id = id.val()
-      database.ref('users/' + id).once('value').then(usersSnapshot => {
-        let userSnapshotVal = usersSnapshot.val()
-        console.log(userSnapshotVal)
-        users.push({ 'key': usersSnapshot.key, 'name': userSnapshotVal.name, 'surname': userSnapshotVal.surname })
-      })
-    })
-  })
-  console.log('houla ! ' + users)
-  return users
 }

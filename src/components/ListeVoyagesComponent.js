@@ -8,7 +8,7 @@ import storage from '../storage'
 class ListeVoyagesComponent extends Component {
   constructor (props) {
     super(props)
-    this.mesVoyagesRef = database.ref('voyages')
+    this.mesVoyagesRef = database.ref('travels')
     this.state = {
       dataSource: []
     }
@@ -27,7 +27,7 @@ class ListeVoyagesComponent extends Component {
       // formating data
       voyage.forEach((child) => {
         items.push({
-          libelle: child.val().nom,
+          libelle: child.val().name,
           travel: child.val(),
           key: child.key
         })
@@ -40,8 +40,8 @@ class ListeVoyagesComponent extends Component {
     })
   }
 
-  handleNavigation = (travel) => {
-    Actions.voyage({ 'selectedTravel': travel })
+  handleNavigation = (travel, key) => {
+    Actions.voyage({ 'selectedTravel': travel, 'travelKey': key })
   }
 
   logout = async () => {
@@ -66,7 +66,7 @@ class ListeVoyagesComponent extends Component {
         {this.state.dataSource.map(data =>
           <Button
             key={data.key}
-            onPress={() => { this.handleNavigation(data.travel) }}
+            onPress={() => { this.handleNavigation(data.travel, data.key) }}
             title={data.libelle}
             color='#ee3333'
             accessibilityLabel='Learn more about this purple button'
