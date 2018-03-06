@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { SectionList, StyleSheet, Text, View, Button, TouchableOpacity } from 'react-native'
+import { SectionList, StyleSheet, Text, View, Image, Button, TouchableOpacity } from 'react-native'
 import { Actions } from 'react-native-router-flux'
 import { inject, observer } from 'mobx-react'
 
@@ -61,7 +61,11 @@ export default class HousingList extends Component {
           keyExtractor={(item, index) => index}
         />
         <TouchableOpacity style={styles.btnAjout}>
-          <Text style={styles.plus} onPress={() => Actions.addHousing({ 'selectedTravel': this.props.selectedTravel })}>+</Text>
+          <Image
+            style={{ width: 20, height: 20 }}
+            source={require('../../../Graphismes/icones/Plus.png')}
+            onPress={() => Actions.addHousing({ 'selectedTravel': this.props.selectedTravel })}
+          />
         </TouchableOpacity>
       </View>
     )
