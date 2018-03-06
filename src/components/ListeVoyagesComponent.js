@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Button, View } from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import { database, auth } from '../config/firebase'
 import { Actions } from 'react-native-router-flux'
 
@@ -19,13 +19,13 @@ class ListeVoyagesComponent extends Component {
   }
 
   // Recovering my travels
-  listenForVoyages = (voyageListe) => {
-    voyageListe.on('value', (voyage) => {
+  listenForVoyages = voyageListe => {
+    voyageListe.on('value', voyage => {
       // get children as an array
       var items = []
       // console.log('snap',)
       // formating data
-      voyage.forEach((child) => {
+      voyage.forEach(child => {
         items.push({
           libelle: child.val().name,
           travel: child.val(),
@@ -62,23 +62,66 @@ class ListeVoyagesComponent extends Component {
 
   render () {
     return (
-      <View>
-        {this.state.dataSource.map(data =>
-          <Button
+      <View style={styles.container}>
+        <Text style={styles.title}>Mes voyages</Text>
+
+        {this.state.dataSource.map(data => (
+          <TouchableOpacity
             key={data.key}
             onPress={() => { this.handleNavigation(data.travel, data.key) }}
             title={data.libelle}
             color='#ee3333'
             accessibilityLabel='Learn more about this purple button'
-          />)}
-        <Button
-          title='Se déconnecter'
-          onPress={() => { this.logout() }}
-          color='black'
-        />
+          >
+            <Text style={styles.travel}>{data.libelle}</Text>
+          </TouchableOpacity>
+        ))}
+
+        <TouchableOpacity style={styles.float}>
+          <Text style={styles.textFloat}>+</Text>
+        </TouchableOpacity>
       </View>
     )
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#ffffff'
+  },
+
+  title: {
+    color: '#2C3E50',
+    fontSize: 30,
+    marginTop: '20%',
+    marginBottom: '20%',
+    textAlign: 'center'
+  },
+
+  travel: {
+    color: '#d42b64',
+    textAlign: 'center',
+    fontSize: 20,
+    marginBottom: '8%'
+  },
+
+  float: {
+    position: 'absolute',
+    width: 60,
+    height: 60,
+    bottom: 20,
+    right: 20,
+    backgroundColor: '#D42B64',
+    borderRadius: 50,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+
+  textFloat: {
+    color: '#ffffff',
+    fontSize: 25
+  }
+})
 
 export default ListeVoyagesComponent
