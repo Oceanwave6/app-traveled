@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Button, View } from 'react-native'
-// import { getModuleNameById } from '../util'
+import { getModuleNameById } from '../util'
 import { Actions } from 'react-native-router-flux'
 import { observer, inject } from 'mobx-react'
 import { LOGEMENTS, TRANSPORTS, DEPENSES, ACTIVITES, DOCUMENTS, LISTES } from '../constants'
@@ -23,7 +23,7 @@ class MenuVoyageComponent extends Component {
     switch (libModule) {
       case LOGEMENTS:
         this.props.housing.pushHousings(this.props.selectedTravel.logements)
-        Actions.housingsList({ 'travelKey': this.props.travelKey })
+        Actions.housingsList({ 'selectedTravel': this.props.selectedTravel })
         break
 
       case TRANSPORTS:
@@ -60,13 +60,12 @@ class MenuVoyageComponent extends Component {
   // get modules name to show
   listenForModules = moduleListe => {
     var items = []
-    for (var key in moduleListe) {
-      var module = moduleListe[key]
+    moduleListe.forEach(child => {
       items.push({
-        libelle: module.value,
-        key: key
+        libelle: getModuleNameById(child),
+        key: child.toString()
       })
-    }
+    })
     this.setState({
       dataSource: items
     })

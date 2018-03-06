@@ -61,7 +61,7 @@ export default class HousingList extends Component {
           keyExtractor={(item, index) => index}
         />
         <TouchableOpacity style={styles.btnAjout}>
-          <Text style={styles.plus}>+</Text>
+          <Text style={styles.plus} onPress={() => Actions.addHousing({ 'selectedTravel': this.props.selectedTravel })}>+</Text>
         </TouchableOpacity>
       </View>
     )

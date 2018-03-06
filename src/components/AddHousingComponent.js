@@ -8,7 +8,7 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import SelectMultiple from 'react-native-select-multiple'
 import { database } from '../config/firebase'
 
-@inject('housingCreation')
+@inject('housing')
 @observer
 export default class AddHousingComponent extends Component {
   state = {
@@ -23,8 +23,8 @@ export default class AddHousingComponent extends Component {
     error: ''
   }
 
+  // Fonction pour charger la liste des participants à un voyage donné dans le select multiple
   loadTravelUsers = (travelId) => {
-    console.log('get users from ' + travelId)
     let travelUsersRef = database.ref('travels/' + travelId + '/members')
 
     travelUsersRef.on('value', (travelUsersSnapshot) => {
@@ -32,7 +32,6 @@ export default class AddHousingComponent extends Component {
       travelUsersSnapshot.forEach((id) => {
         database.ref('users/' + id.val()).once('value').then(usersSnapshot => {
           let userSnapshotVal = usersSnapshot.val()
-          console.log(userSnapshotVal)
           users.push({
             'value': usersSnapshot.key,
             'label': userSnapshotVal.surname + ' ' + userSnapshotVal.name
@@ -46,14 +45,13 @@ export default class AddHousingComponent extends Component {
   }
 
   componentDidMount = () => {
-    console.log('get users')
+    // TODO remplacer par selectedTravel
     this.loadTravelUsers('-L3mP01U5xPgHxONVDpC')
   }
 
-    onSelectionsChange = (members) => {
-      console.log(members)
-      this.setState({ members })
-    }
+  onSelectionsChange = (members) => {
+    this.setState({ members })
+  }
 
   handleMembersChange = (text, key) => {
     this.setState(prevState => {
@@ -66,22 +64,26 @@ export default class AddHousingComponent extends Component {
     })
   }
 
+  // Fonction qui valide la création d'un logement
   validate = () => {
-    const { housingCreation } = this.props
+    // Récupération du store et des informations saisis dans les champs
+    const { housing } = this.props
     const { name, address, dateBegin, dateEnd, members, contact, notes } = this.state
 
+    // Vérification que le nom du logement a bien été saisi
     if (name !== '') {
-      housingCreation.addName(name)
-      housingCreation.addAddress(address)
-      housingCreation.addDateBegin(dateBegin)
-      housingCreation.addDateEnd(dateEnd)
-      housingCreation.addMembers(members)
-      housingCreation.addContact(contact)
-      housingCreation.addNotes(notes)
+      housing.addName(name)
+      housing.addAddress(address)
+      housing.addDateBegin(dateBegin)
+      housing.addDateEnd(dateEnd)
+      housing.addMembers(members)
+      housing.addContact(contact)
+      housing.addNotes(notes)
 
-      housingCreation.createHousing('-L3mP01U5xPgHxONVDpC')
+      // TODO passer le selectedTravel plutôt que l'id en dur
+      housing.createHousing('-L3mP01U5xPgHxONVDpC')
 
-      Actions.logementsList('-L3mP01U5xPgHxONVDpC')
+      Actions.housingsList({ 'selectedTravel': this.props.selectedTravel })
     } else {
       this.setState({ error: 'Veuillez saisir le nom du logement' })
     }

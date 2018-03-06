@@ -24,7 +24,7 @@ export default () => (
   >
     <Stack key='root'>
       <Scene key='login' component={AuthComponent} title='Connexion' />
-      <Scene key='AddHousing' component={AddHousingComponent} title='Ajouter logement' />
+      <Scene key='addHousing' component={AddHousingComponent} title='Ajouter logement' />
       <Scene key='listeVoyages' component={ListeVoyagesComponent} title='Mes voyages' />
       <Scene key='register' component={SignUpComponent} title='Inscription' />
       <Scene key='voyage' component={MenuVoyageComponent} title='Voyage' />
