@@ -66,27 +66,31 @@ export default class AddHousingComponent extends Component {
 
   // Fonction qui valide la création d'un logement
   validate = () => {
-    // Récupération du store et des informations saisis dans les champs
-    const { housing } = this.props
-    const { name, address, dateBegin, dateEnd, members, contact, notes } = this.state
-
     // Vérification que le nom du logement a bien été saisi
-    if (name !== '') {
-      housing.addName(name)
-      housing.addAddress(address)
-      housing.addDateBegin(dateBegin)
-      housing.addDateEnd(dateEnd)
-      housing.addMembers(members)
-      housing.addContact(contact)
-      housing.addNotes(notes)
-
+    if (this.state.name !== '') {
       // TODO passer le selectedTravel plutôt que l'id en dur
-      housing.createHousing('-L3mP01U5xPgHxONVDpC')
-
+      this.createHousing('-L3mP01U5xPgHxONVDpC')
+      // On redirige vers la liste des logements
       Actions.housingsList({ selectedTravel: this.props.selectedTravel })
     } else {
       this.setState({ error: 'Veuillez saisir le nom du logement' })
     }
+  }
+
+  // Fonction de création d'un logement sur firebase
+  createHousing (id) {
+    const travelRef = database.ref('travels/' + id + '/housings').push({
+      name: this.state.name,
+      address: this.state.address,
+      dateBegin: this.state.dateBegin,
+      dateEnd: this.state.dateEnd,
+      contact: this.state.contact,
+      notes: this.state.notes
+    })
+
+    this.state.members.forEach(member => {
+      database.refFromURL(`${travelRef.toString()}/members`).push(member.value)
+    })
   }
 
   render = () => {
