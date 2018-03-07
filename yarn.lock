@@ -210,9 +210,9 @@
   version "0.2.6"
   resolved "https://registry.yarnpkg.com/@firebase/webchannel-wrapper/-/webchannel-wrapper-0.2.6.tgz#a4b81ca8cdeb1acbc7923289a4a514f61b59db86"
 
-"@m5r/react-native-datepicker@1.6.4":
-  version "1.6.4"
-  resolved "https://registry.yarnpkg.com/@m5r/react-native-datepicker/-/react-native-datepicker-1.6.4.tgz#b06fd0f13343845d56d676f78628dff88c352dea"
+"@m5r/react-native-datepicker@1.6.1":
+  version "1.6.1"
+  resolved "https://registry.yarnpkg.com/@m5r/react-native-datepicker/-/react-native-datepicker-1.6.1.tgz#05f2905b9c44d6104ea7fabdf798947d0a050797"
   dependencies:
     moment "2.x.x"
 
@@ -2220,8 +2220,8 @@ detect-newline@^2.1.0:
   resolved "https://registry.yarnpkg.com/detect-newline/-/detect-newline-2.1.0.tgz#f41f1c10be4b00e87b5f13da680759f2c5bfd3e2"
 
 diff@^3.2.0:
-  version "3.4.0"
-  resolved "https://registry.yarnpkg.com/diff/-/diff-3.4.0.tgz#b1d85507daf3964828de54b37d0d73ba67dda56c"
+  version "3.5.0"
+  resolved "https://registry.yarnpkg.com/diff/-/diff-3.5.0.tgz#800c0dd1e0a8bfbc95835c202ad220fe317e5a12"
 
 doctrine@1.5.0:
   version "1.5.0"
