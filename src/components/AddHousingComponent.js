@@ -7,11 +7,13 @@ import { format } from 'date-fns'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import SelectMultiple from 'react-native-select-multiple'
 import { database } from '../config/firebase'
+import DateTimePicker from 'react-native-modal-datetime-picker'
 
 @inject('housing')
 @observer
 export default class AddHousingComponent extends Component {
   state = {
+    isDateTimePickerVisible: false,
     name: '',
     address: '',
     dateBegin: '',
@@ -93,6 +95,15 @@ export default class AddHousingComponent extends Component {
     })
   }
 
+  _showDateTimePicker = () => this.setState({ isDateTimePickerVisible: true })
+
+  _hideDateTimePicker = () => this.setState({ isDateTimePickerVisible: false })
+
+  _handleDatePicked = (date) => {
+    console.log('A date has been picked: ', date)
+    this._hideDateTimePicker()
+  };
+
   render = () => {
     const { dateBegin, dateEnd } = this.state
 
@@ -105,6 +116,15 @@ export default class AddHousingComponent extends Component {
           />
         </TouchableOpacity>
         <KeyboardAwareScrollView style={styles.container}>
+          <TouchableOpacity onPress={this._showDateTimePicker}>
+            <Text>Show DatePicker</Text>
+          </TouchableOpacity>
+          <DateTimePicker
+            isVisible={this.state.isDateTimePickerVisible}
+            mode='time'
+            onConfirm={this._handleDatePicked}
+            onCancel={this._hideDateTimePicker}
+          />
           <TextInput
             style={{ borderColor: 'gray', marginVertical: 5, borderBottomWidth: Platform.OS === 'ios' ? 1 : 0 }}
             placeholder='Nom'
