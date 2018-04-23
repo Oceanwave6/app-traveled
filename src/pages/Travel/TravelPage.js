@@ -3,7 +3,7 @@ import { observer, inject } from 'mobx-react'
 import Modal from 'material-ui/Modal'
 
 import ListItem from '../../components/ListItem'
-import OneDepense from '../../components/OneDepense'
+import OneLogement from '../../components/OneLogement'
 import FixedActionButton from '../../components/FixedActionButton'
 import Link from '../../components/Link'
 import ConfirmDeleteDialog from '../../components/ConfirmDeleteDialog'
@@ -34,11 +34,12 @@ class TravelPage extends Component {
 
   render () {
     const { appStore, travelStore } = this.props
-    const depenseTest = {
-      name: 'Taxi',
-      spenderAvatar: '',
-      amount: 235,
-      recipientsAvatars: ['']
+    // const avatarlist = '<Avatar className={classes.avatarRecipients} />'
+
+    const logementTest = {
+      name: 'Hotel california',
+      icone: '<i class="material-icons">home</i>',
+      address: '24 Avenue Joannes Masset, 69009 Lyon'
     }
 
     return (
@@ -90,7 +91,7 @@ class TravelPage extends Component {
           </div>
         </Modal>
         <FixedActionButton color='secondary' onClick={() => this.handleOpen()} />
-        <OneDepense depenseTest={depenseTest} />
+        <OneLogement logementTest={logementTest} />
       </div>
     )
   }
