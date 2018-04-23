@@ -3,7 +3,6 @@ import React, { Component } from 'react'
 import Input from '../../components/Input'
 import Button from '../../components/Button'
 import { observer, inject } from 'mobx-react'
-import userStore from '../../stores/UserStore'
 
 @inject('travelStore', 'userStore')
 @observer
