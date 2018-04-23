@@ -3,31 +3,51 @@ import React, { Component } from 'react'
 import Input from '../../components/Input'
 import Button from '../../components/Button'
 import { observer, inject } from 'mobx-react'
-import userStore from '../../stores/UserStore'
 
 @inject('travelStore', 'userStore')
 @observer
 class TravelCreationPage extends Component {
   state = {
-    name: '',
-    dateBegin: Date.now(),
-    dateEnd: Date.now(),
-    participants: [this.props.userStore.user.uid],
-    modules: []
+    participants: [this.props.userStore.user.uid]
   }
 
-  updateField = ({ target: { name, value } }) => {
-    this.setState({
-      [name]: value
-    })
+  handleInputsChange = ({ target: { name, value } }) => {
+    this.props.travelStore.updateTravelCreation(name, value)
   }
 
-  render () {
-    const { name } = this.state
+  renderStepOne = () => {
+    const { name, startDate, endDate } = this.props
 
     return (
+      <div>
+        <div>Step one</div>
+        <Input name='name' onChange={this.handleInputsChange} value={name} />
+        <Input name='startDate' onChange={this.handleInputsChange} value={startDate} />
+        <Input name='endDate' onChange={this.handleInputsChange} value={endDate} />
+      </div>
+    )
+  }
+
+  renderStepTwo = () => {
+    const { modules } = this.props
+
+    return (
+      <div>
+        <div>Step one modules</div>
+        {JSON.stringify(modules)}
+      </div>
+    )
+  }
+
+  renderStepThree = () => (
+    <div>
+      <div>Step one</div>
+    </div>
+  )
+
+  render () {
+    return (
       <div className='container is-fluid'>
-        <Input name='name' onChange={this.updateField} value={name} />
         {/* <Input
           name='dateBegin'
           onChange={this.updateField}
@@ -35,10 +55,13 @@ class TravelCreationPage extends Component {
         />
         <Input name='dateEnd' onChange={this.updateField} value={dateEnd} />
         */}
-        <Button color='primary' onClick={() => {
-          this.props.travelStore.create(this.state)
-          this.props.parent.handleClose()
-        }}>
+        <Button
+          color='primary'
+          onClick={() => {
+            this.props.travelStore.create(this.state)
+            this.props.parent.handleClose()
+          }}
+        >
           Ajouter
         </Button>
       </div>
