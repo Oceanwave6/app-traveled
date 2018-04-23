@@ -5,10 +5,12 @@ body {
 h1 {
   font-size: 2em;
   color: #757f82;
+  margin: 0;
 }
 h2 {
   font-size: 1.7em;
-  color: #e7796c;
+  color: #e7796c; 
+  margin: 0;  
 }
 
 .module-icon {
