@@ -10,16 +10,15 @@ class Travel {
   currentTravelId = observable.box('')
   travels$ = observable.array([])
   travelCreation$ = observable.object({
-    id: '',
-    name: '',
-    startDate: '',
-    endDate: '',
-    icon: '',
-    members: [],
-    modules: [],
-    housings: [],
-    transports: [],
-    spendings: []
+    name: { rule: '', value: '' },
+    startDate: { rule: '', value: '' },
+    endDate: { rule: '', value: '' },
+    image: { rule: '', value: '' },
+    participants: { rule: '', value: [] },
+    modules: { rule: '', value: [] },
+    housings: { rule: '', value: [] },
+    transports: { rule: '', value: [] },
+    spendings: { rule: '', value: [] }
   })
 
   constructor () {
@@ -66,13 +65,9 @@ class Travel {
   }
 
   @action
-  changeTravelCreationStep (step) {
-    this.travelCreationStep = step
-  }
-
-  @action
   updateTravelCreation (key, value) {
-    this.travelCreation$[key] = value
+    console.log('lachance', typeof this.travelCreation$[key].value)
+    this.travelCreation$[key].value = value
   }
 
   @action
