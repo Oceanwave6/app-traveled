@@ -87,6 +87,8 @@ class MaterialDatePicker extends PureComponent {
 
   render () {
     const { selectedDate } = this.state
+    const newProps = { ...this.props }
+    delete newProps['getdate']
 
     return (
       <MuiPickersUtilsProvider
@@ -108,6 +110,7 @@ class MaterialDatePicker extends PureComponent {
                   </InputAdornment>
                 )
               }}
+              {...newProps}
             />
           </div>
         </MuiThemeProvider>
