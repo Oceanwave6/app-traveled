@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { PureComponent } from 'react'
 import { DatePicker } from 'material-ui-pickers'
 import moment from 'moment'
 import MomentUtils from 'material-ui-pickers/utils/moment-utils'
@@ -65,7 +65,7 @@ const materialTheme = createMuiTheme({
   }
 })
 
-class MaterialDatePicker extends React.Component {
+class MaterialDatePicker extends PureComponent {
   constructor (props) {
     moment.locale('fr')
     super(props)
@@ -73,6 +73,12 @@ class MaterialDatePicker extends React.Component {
       selectedDate: moment()
     }
     this.handleDateChange = this.handleDateChange.bind(this)
+  }
+
+  componentDidUpdate () {
+    if (this.props.getDate) {
+      this.props.getDate(this.state.selectedDate.toString())
+    }
   }
 
   handleDateChange = date => {

@@ -8,8 +8,8 @@ import appStore from './AppStore'
 
 class Travel {
   currentTravelId = observable.box('')
-  travels$ = observable.array([])
-  travelCreation$ = observable.object({
+  travels = observable.array([])
+  travelCreation = observable.object({
     name: { rule: '', value: '' },
     startDate: { rule: '', value: '' },
     endDate: { rule: '', value: '' },
@@ -35,13 +35,8 @@ class Travel {
   }
 
   @computed
-  get travels () {
-    return toJS(this.travels$)
-  }
-
-  @computed
   get travel () {
-    return toJS(this.travels$.find(travel => travel.id === this.currentTravelId.get()))
+    return toJS(this.travels.find(travel => travel.id === this.currentTravelId.get()))
   }
 
   @action
@@ -56,19 +51,31 @@ class Travel {
     const filteredTravels = response.filter(
       travel => travel.participants && travel.participants.includes(userStore.user.uid)
     )
-    this.travels$.replace(filteredTravels)
+    this.travels.replace(filteredTravels)
   }
 
   @action
   updateTravelCreation (key, value) {
-    console.log('lachance', typeof this.travelCreation$[key].value)
-    this.travelCreation$[key].value = value
+    const field = this.travelCreation[key]
+    switch (typeof field.value) {
+      case 'string':
+        field.value = value
+        console.log('after >>', this.travelCreation[key].value)
+        break
+      case 'object':
+        console.log(value)
+        // this.travelCreation[key].value.push(value)
+        break
+
+      default:
+        break
+    }
   }
 
   @action
   async create (data) {
     const newTravel = await this.api.create(data)
-    this.travels$.push(newTravel)
+    this.travels.push(newTravel)
   }
 
   @action
@@ -76,8 +83,8 @@ class Travel {
     const deletion = await this.api.delete(id)
 
     if (deletion.error === false) {
-      const newTravels$ = this.travels$.filter(travel => travel.id !== id)
-      this.travels$.replace(newTravels$)
+      const newTravels = this.travels.filter(travel => travel.id !== id)
+      this.travels.replace(newTravels)
       return
     }
 
