@@ -15,14 +15,14 @@ class TravelCreationPage extends Component {
         <Input name='name' onChange={handleInputsChange} value={name} />
         <DatePicker
           name='startDate'
-          getDate={date => {
+          getdate={date => {
             travelStore.updateTravelCreation('startDate', date)
           }}
           value={startDate}
         />
         <DatePicker
           name='endDate'
-          getDate={date => {
+          getdate={date => {
             travelStore.updateTravelCreation('endDate', date)
           }}
           value={endDate}

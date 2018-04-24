@@ -57,6 +57,7 @@ class Travel {
   @action
   updateTravelCreation (key, value) {
     const field = this.travelCreation[key]
+    console.log('after >>', this.travelCreation[key].value)
     switch (typeof field.value) {
       case 'string':
         field.value = value

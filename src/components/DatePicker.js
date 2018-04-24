@@ -76,8 +76,8 @@ class MaterialDatePicker extends PureComponent {
   }
 
   componentDidUpdate () {
-    if (this.props.getDate) {
-      this.props.getDate(this.state.selectedDate.toString())
+    if (this.props.getdate) {
+      this.props.getdate(this.state.selectedDate.toString())
     }
   }
 
@@ -86,7 +86,6 @@ class MaterialDatePicker extends PureComponent {
   }
 
   render () {
-    const { classes, whiteInput, ...props } = this.props
     const { selectedDate } = this.state
 
     return (
@@ -109,7 +108,6 @@ class MaterialDatePicker extends PureComponent {
                   </InputAdornment>
                 )
               }}
-              {...props}
             />
           </div>
         </MuiThemeProvider>
