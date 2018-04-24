@@ -9,7 +9,7 @@ import TravelCreationPageThree from './TravelCreationPageThree'
 import Header from '../../components/Header'
 import Navbar from '../../components/Navbar'
 
-@inject('userStore')
+@inject('userStore', 'travelStore')
 @observer
 class TravelCreationPage extends Component {
   state = {

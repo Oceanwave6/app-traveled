@@ -13,6 +13,7 @@ class Travel {
     name: { rule: '', value: '' },
     startDate: { rule: '', value: '' },
     endDate: { rule: '', value: '' },
+    note: { rule: '', value: '' },
     image: { rule: '', value: '' },
     participants: { rule: '', value: [] },
     modules: { rule: '', value: [] },
@@ -40,12 +41,6 @@ class Travel {
 
   @computed
   get travel () {
-    console.log('this.travels$', toJS(this.travels$))
-    console.log('this.currentTravelId.get()', this.currentTravelId.get())
-    console.log(
-      'toJS(this.travels$.find(travel => travel.id === this.currentTravelId.get()))',
-      toJS(this.travels$.find(travel => travel.id === this.currentTravelId.get()))
-    )
     return toJS(this.travels$.find(travel => travel.id === this.currentTravelId.get()))
   }
 

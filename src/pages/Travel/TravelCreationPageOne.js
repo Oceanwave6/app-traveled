@@ -8,14 +8,14 @@ import DatePicker from '../../components/DatePicker'
 @observer
 class TravelCreationPage extends Component {
   render () {
-    const { name, startDate, endDate, handleInputsChange } = this.props
+    const { name, startDate, endDate, note, handleInputsChange } = this.props
 
     return (
       <div>
-        <div>Step one</div>
         <Input name='name' onChange={handleInputsChange} value={name} />
         <DatePicker name='startDate' onChange={handleInputsChange} value={startDate} />
         <DatePicker name='endDate' onChange={handleInputsChange} value={endDate} />
+        <Input name='note' onChange={handleInputsChange} value={note} />
       </div>
     )
   }
