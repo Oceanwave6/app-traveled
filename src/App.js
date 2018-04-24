@@ -61,15 +61,15 @@ class App extends Component {
                 />
                 <PrivateRoute
                   exact
-                  path='/travel/:id'
+                  path='/travels/create'
                   isConnected={appStore.isConnected}
-                  component={TravelDetail}
+                  component={TravelCreation}
                 />
                 <PrivateRoute
                   exact
-                  path='/travel/create'
+                  path='/travels/:id'
                   isConnected={appStore.isConnected}
-                  component={TravelCreation}
+                  component={TravelDetail}
                 />
 
                 {/* fallback route to redirect the user */}

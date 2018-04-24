@@ -1,6 +1,9 @@
 import React, { Component } from 'react'
 import { observer, inject } from 'mobx-react'
 
+import Header from '../../components/Header'
+import Navbar from '../../components/Navbar'
+
 import TravelCreationPageOne from './TravelCreationPageOne'
 import TravelCreationPageTwo from './TravelCreationPageTwo'
 import TravelCreationPageThree from './TravelCreationPageThree'
@@ -33,7 +36,13 @@ class TravelCreationPage extends Component {
   }
 
   render () {
-    return <div>{this.renderSwitch()}</div>
+    return (
+      <div>
+        <Header />
+        <Navbar />
+        {this.renderSwitch()}
+      </div>
+    )
   }
 }
 
