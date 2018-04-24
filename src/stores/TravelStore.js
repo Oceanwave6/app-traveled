@@ -37,6 +37,11 @@ class Travel {
   }
 
   @computed
+  get participants () {
+    return toJS(this.travelCreation.participants.value)
+  }
+
+  @computed
   get travel () {
     return toJS(this.travels.find(travel => travel.id === this.currentTravelId.get()))
   }
@@ -70,14 +75,16 @@ class Travel {
   @action
   updateTravelCreation (key, value) {
     const field = this.travelCreation[key]
-    console.log('after >>', this.travelCreation[key].value)
+
+    console.log('value', field)
     switch (typeof field.value) {
       case 'string':
         field.value = value
-        console.log('after >>', this.travelCreation[key].value)
         break
       case 'object':
-        console.log(value)
+        console.log('value', field)
+        field.value.replace(value)
+
         // this.travelCreation[key].value.push(value)
         break
 
