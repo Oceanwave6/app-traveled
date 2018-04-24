@@ -7,7 +7,7 @@ class TravelCreationPage extends Component {
   render () {
     return (
       <div>
-        <div>Step one</div>
+        <div>Step two</div>
       </div>
     )
   }
