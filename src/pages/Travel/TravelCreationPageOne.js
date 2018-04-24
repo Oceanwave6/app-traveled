@@ -6,7 +6,7 @@ import DatePicker from '../../components/DatePicker'
 
 @inject('travelStore', 'userStore')
 @observer
-class TravelCreationPage extends Component {
+class TravelCreationPageOne extends Component {
   render () {
     const { name, startDate, endDate, note, handleInputsChange, travelStore } = this.props
 
@@ -33,4 +33,4 @@ class TravelCreationPage extends Component {
   }
 }
 
-export default TravelCreationPage
+export default TravelCreationPageOne

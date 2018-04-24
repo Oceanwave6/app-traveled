@@ -3,7 +3,7 @@ import { observer, inject } from 'mobx-react'
 
 @inject('travelStore', 'userStore')
 @observer
-class TravelCreationPage extends Component {
+class TravelCreationPageThree extends Component {
   render () {
     return (
       <div>
@@ -13,4 +13,4 @@ class TravelCreationPage extends Component {
   }
 }
 
-export default TravelCreationPage
+export default TravelCreationPageThree
