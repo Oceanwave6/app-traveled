@@ -23,7 +23,7 @@ class TravelCreationPage extends Component {
     this.props.travelStore.updateTravelCreation(name, value)
   }
 
-  handleStep = step => () => {
+  handleStep = step => {
     this.setState({
       activeStep: step
     })
@@ -61,7 +61,9 @@ class TravelCreationPage extends Component {
               return (
                 <Step key={label}>
                   <StepButton
-                    onClick={this.handleStep(index)}
+                    onClick={() => {
+                      this.handleStep(index)
+                    }}
                     completed={this.isStepComplete(index)}
                   />
                 </Step>
