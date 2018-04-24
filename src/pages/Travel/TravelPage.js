@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import { observer, inject } from 'mobx-react'
+import { Link } from 'react-router-dom'
 import Modal from 'material-ui/Modal'
 
 import ListItem from '../../components/ListItem'
 import FixedActionButton from '../../components/FixedActionButton'
-import Link from '../../components/Link'
 import ConfirmDeleteDialog from '../../components/ConfirmDeleteDialog'
 import Navbar from '../../components/Navbar'
 import Header from '../../components/Header'
@@ -33,56 +33,61 @@ class TravelPage extends Component {
 
   render () {
     const { appStore, travelStore } = this.props
-
+    console.log(this.props)
     return (
       <div>
         <Header />
         <Navbar />
-        {
-          travelStore.travels.map(({ id, name }, iteration) => (
-            <ListItem
-              key={id}
-              iteration={iteration}
-              onClick={() => travelStore.setCurrentTravelId(id)}
-            >
+        {travelStore.travels.map(({ id, name }, iteration) => (
+          <ListItem
+            key={id}
+            iteration={iteration}
+            onClick={() => travelStore.setCurrentTravelId(id)}
+          >
+            <div>
               <div>
-                <div>
-                  <Link to={`/travel/${id}`}>
-                    <div>{name}</div>
-                  </Link>
-                  <div
-                    onClick={e => {
-                      e.stopPropagation()
-                      appStore.openConfirmDeleteDialog(id)
-                    }}
-                  >
-                    Supprimer
-                  </div>
+                <Link to={`/travel/${id}`}>
+                  <div>{name}</div>
+                </Link>
+                <div
+                  onClick={e => {
+                    e.stopPropagation()
+                    appStore.openConfirmDeleteDialog(id)
+                  }}
+                >
+                  Supprimer
                 </div>
               </div>
-            </ListItem>
-          ))
-        }
-        <ConfirmDeleteDialog isOpen={appStore.confirmDeleteDialogStatus.get()} deleteFunction={this.deleteTravel} />
+            </div>
+          </ListItem>
+        ))}
+        <ConfirmDeleteDialog
+          isOpen={appStore.confirmDeleteDialogStatus.get()}
+          deleteFunction={this.deleteTravel}
+        />
         <Modal
           aria-labelledby='Ajouter un voyage'
           aria-describedby="Fenêtre de création d'un nouveau voyage"
           open={this.state.open}
           onClose={this.handleClose}
         >
-          <div style={{
-            position: 'absolute',
-            top: '33%',
-            left: '25%',
-            width: '50%',
-            backgroundColor: 'white',
-            boxShadow: '2px',
-            padding: '20px'
-          }}>
+          <div
+            style={{
+              position: 'absolute',
+              top: '33%',
+              left: '25%',
+              width: '50%',
+              backgroundColor: 'white',
+              boxShadow: '2px',
+              padding: '20px'
+            }}
+          >
             <TravelCreationPage parent={this} />
           </div>
         </Modal>
-        <FixedActionButton color='secondary' onClick={() => this.handleOpen()} />
+        <Link to='/travel/create'>
+          <FixedActionButton color='secondary' onClick={() => this.handleOpen()} />
+        </Link>
       </div>
     )
   }

@@ -9,6 +9,7 @@ import Login from './pages/Authentication/Login'
 import Registration from './pages/Authentication/Registration'
 import Travel from './pages/Travel/TravelPage'
 import TravelDetail from './pages/Travel/TravelDetailPage'
+import TravelCreation from './pages/Travel/TravelCreationPage'
 
 import Loader from './components/Loader'
 import { PrivateRoute } from './components/PrivateRoute'
@@ -63,6 +64,12 @@ class App extends Component {
                   path='/travel/:id'
                   isConnected={appStore.isConnected}
                   component={TravelDetail}
+                />
+                <PrivateRoute
+                  exact
+                  path='/travel/create'
+                  isConnected={appStore.isConnected}
+                  component={TravelCreation}
                 />
 
                 {/* fallback route to redirect the user */}
