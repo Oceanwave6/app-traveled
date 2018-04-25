@@ -76,13 +76,11 @@ class Travel {
   updateTravelCreation (key, value) {
     const field = this.travelCreation[key]
 
-    console.log('value', field)
     switch (typeof field.value) {
       case 'string':
         field.value = value
         break
       case 'object':
-        console.log('value', field)
         field.value.replace(value)
 
         // this.travelCreation[key].value.push(value)
