@@ -3,6 +3,7 @@ import { inject, observer } from 'mobx-react'
 import Avatar from './Avatar'
 import Card, { CardContent, CardMedia } from 'material-ui/Card'
 import { withStyles } from 'material-ui/styles'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 const styles = {
   card: {
@@ -30,6 +31,7 @@ class ListItemVoyage extends Component {
             {travel.participants && travel.participants.map((item) => {
               return <Avatar key={item.id} src={item.avatar} />
             })}
+            <FontAwesomeIcon style={{color: '#F57464', fontSize: 50}} icon={['fas', 'plus-circle']} />
           </div>
           <h1>{travel.name}</h1>
           <h2>{travel.startDate} - {travel.endDate}</h2>
