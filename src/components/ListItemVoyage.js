@@ -85,7 +85,8 @@ class ListItemVoyage extends Component {
               style={{
                 position: 'absolute',
                 bottom: '5px',
-                left: '5px'
+                left: '5px',
+                display: 'flex'
               }}
             >
               {travel.participants &&
