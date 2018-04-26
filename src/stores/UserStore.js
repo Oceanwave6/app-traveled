@@ -1,15 +1,16 @@
 import { observable, action } from 'mobx'
-
 import { login, logout, register } from '../api/AuthenticationApi'
 import { uploadFile } from '../api/StorageApi'
 import appStore from './AppStore'
 import UserApi from '../api/UserApi'
+import moment from 'moment'
 
 class User {
   constructor () {
     this.api = new UserApi()
   }
   user = observable.object({})
+  error = observable.object({})
   authenticatingUser = observable.object({
     name: '',
     surname: '',
@@ -29,23 +30,30 @@ class User {
   }
 
   @action
-  async login ({ email, password, onSuccess }) {
+  setError (key, value) {
+    this.error[key] = value
+  }
+
+  @action
+  async login ({ email, password, onSuccess, onError }) {
     try {
       const user = await login({ email, password })
       this.setUser(user)
       onSuccess()
     } catch (error) {
+      this.error = {}
       let errorCode = error.code
       let errorMessage = error.message
       // Par défaut on met l'erreur sur le champ email
       let input = 'email'
-      if (errorCode === 'auth/invalid-email' || 'auth/user-not-found' || 'auth/user-disabled') {
+      if (errorCode === 'auth/invalid-email' || errorCode === 'auth/user-not-found' || errorCode === 'auth/user-disabled') {
         input = 'email'
       }
       if (errorCode === 'auth/wrong-password') {
         input = 'password'
       }
-      this.authenticatingUser.error.push({ input: input, message: errorMessage })
+      this.setError(input, errorMessage)
+      onError()
     }
   }
 
@@ -58,18 +66,55 @@ class User {
 
   @action
   async register (registrationInformations) {
-    const user = await register(registrationInformations)
-    uploadFile(`avatars/${user.uid}`, this.authenticatingUser.avatar)
-    this.authenticatingUser.avatar = `avatars/${user.uid}`
-    this.authenticatingUser.userId = user.uid
-    const { name, surname, email, userId, avatar } = this.authenticatingUser
-    this.api.create({ name, surname, email, userId, avatar })
-    this.setUser(user)
+    this.error = {}
+    this.validateInputs(this.authenticatingUser)
+    if (Object.keys(this.error).length === 0) {
+      const user = await register(registrationInformations)
+      if (this.authenticatingUser.avatar !== undefined) {
+        uploadFile(`avatars/${user.uid}`, this.authenticatingUser.avatar)
+        this.authenticatingUser.avatar = `avatars/${user.uid}`
+      }
+      this.authenticatingUser.userId = user.uid
+      const { name, surname, email, userId, avatar, birthday } = this.authenticatingUser
+      this.api.create({ name, surname, email, userId, avatar, birthday })
+      this.setUser(user)
+    }
   }
 
   @action
   setUserCreation (key, value) {
     this.authenticatingUser[key] = value
+  }
+
+  validateEmail (email) {
+    var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+    return re.test(String(email).toLowerCase())
+  }
+  validateInputs (inputs) {
+    Object.keys(inputs).map(
+      (item) => {
+        switch (item) {
+          case 'email':
+            if (!this.validateEmail(inputs[item])) {
+              this.setError(item, "Cette adresse email n'est pas valide")
+            }
+            break
+          case 'password':
+            if (inputs[item] !== inputs['passwordConfirmation']) {
+              this.setError(item, 'Les deux mots de passe ne sont pas identiques')
+            }
+            break
+          case 'birthday':
+            let date = moment(inputs[item])
+            if (!date.isValid()) {
+              this.setError(item, 'Le format de date est invalide')
+            }
+            break
+          default:
+            break
+        }
+      }
+    )
   }
 }
 
