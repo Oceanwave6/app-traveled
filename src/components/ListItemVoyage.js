@@ -27,7 +27,7 @@ const styles = {
     color: 'black'
   }
 }
-@inject('appStore', 'userStore', 'travelStore')
+@inject('appStore', 'userStore')
 @observer
 class ListItemVoyage extends Component {
   render () {
@@ -69,7 +69,7 @@ class ListItemVoyage extends Component {
         image = imageChamp
     }
     return (
-      <Card style={styles.card} key={travel.id}>
+      <Card style={styles.card}>
         <CardMedia
           style={{
             width: '100%',
