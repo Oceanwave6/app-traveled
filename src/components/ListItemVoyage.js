@@ -27,7 +27,7 @@ const styles = {
     color: 'black'
   }
 }
-@inject('appStore', 'userStore')
+@inject('appStore', 'userStore', 'travelStore')
 @observer
 class ListItemVoyage extends Component {
   render () {
@@ -69,15 +69,15 @@ class ListItemVoyage extends Component {
         image = imageChamp
     }
     return (
-      <Card style={styles.card}>
+      <Card style={styles.card} key={travel.id}>
         <CardMedia
           style={{
             width: '100%',
             height: '200px',
             position: 'relative',
-            backgroundImage: `url(${image})`,
             backgroundSize: 'cover'
           }}
+          image={image}
         >
           <div
             style={{
@@ -103,7 +103,9 @@ class ListItemVoyage extends Component {
           </div>
         </CardMedia>
         <CardContent style={styles.cardContent}>
-          <h1 style={styles.cardTitle}>{travel.name}</h1>
+          <h1 style={styles.cardTitle}>
+            {travel.name}
+          </h1>
           <h2 style={styles.cardSubTitle}>
             {travel.startDate} - {travel.endDate}
           </h2>
