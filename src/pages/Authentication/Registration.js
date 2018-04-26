@@ -10,7 +10,6 @@ import ImageUpload from '../../components/ImageUpload'
 @observer
 class Registration extends Component {
   updateField = ({ target: { name, value } }) => this.props.userStore.setUserCreation(name, value)
-
   updateBirthdayField = (value) => this.props.userStore.setUserCreation('birthday', value.format())
 
   onLoginSuccessful = () => {
@@ -31,7 +30,7 @@ class Registration extends Component {
         background: 'linear-gradient(to left, #F2BF95, #E45C55)',
         color: 'white',
         width: '70%',
-        marginTop: '30px'
+        marginTop: '40px'
       },
       primary: {
         color: 'white',
@@ -154,7 +153,8 @@ class Registration extends Component {
             style={{
               display: 'block',
               color: 'white',
-              marginTop: '40px',
+              paddingTop: '20px',
+              paddingBottom: '20px',
               textDecoration: 'none'
             }}
           >
