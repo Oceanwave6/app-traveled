@@ -13,7 +13,7 @@ class Link extends Component {
           textDecoration: 'none',
           fontSize: '20px'
         }}
-        to={this.props.to}
+        {...this.props}
       >
         {this.props.children}
       </RRLink>
