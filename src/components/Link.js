@@ -9,7 +9,7 @@ class Link extends Component {
     return (
       <RRLink
         style={{
-          color: 'white',
+          color: 'inherit',
           textDecoration: 'none',
           fontSize: '20px'
         }}
