@@ -1,8 +1,6 @@
 @font-face {
   font-family: "Proxima-Nova-Alt-Regular";
-  font-style: normal;
-  font-weight: 400;
-  src: local("Proxima-Nova-Alt-Regular"), url("./font/Proxima-Nova-Alt-Regular.otf") format("otf");
+  src: url("./fonts/Proxima-Nova-Alt-Regular.otf");
 }
 
 html,
