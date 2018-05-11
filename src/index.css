@@ -7,6 +7,10 @@ src: url("./fonts/Proxima-Nova-Alt-Regular.otf");
 font-family: "Proxima-Nova-Alt-Thin";
 src: url("./fonts/Proxima-Nova-Alt-Thin.otf");
 }
+@font-face{
+font-family: "Proxima-Nova-Alt-Thin";
+src: url("./fonts/Proxima-Nova-Alt-Thin.otf");
+}
 
 html,
 body,
